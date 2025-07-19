@@ -1,0 +1,21 @@
+{
+  "name": "Q8",
+  "version": "1.0.0",
+  "description": "Node.js Q8 project with multiple scripts",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \" Dummy test script running...\"",
+    "fetch-google": "node fetch.js",
+    "say-hello": "echo \" Hello from Q8 project!\"",
+    "show-date": "node -e \"console.log(' Date:', new Date().toLocaleString())\""
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.2",
+    "fetch": "^1.1.0",
+    "node-fetch": "^3.3.2"
+  }
+}

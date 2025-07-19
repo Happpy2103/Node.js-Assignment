@@ -1,0 +1,17 @@
+{
+  "dependencies": {
+    "archiver": "^7.0.1",
+    "express": "^5.1.0",
+    "unzipper": "^0.12.3"
+  },
+  "name": "q7",
+  "version": "1.0.0",
+  "main": "zipfolder.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {},
+  "description": ""
+}

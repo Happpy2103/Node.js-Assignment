@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Hello Node JS</title>
+</head>
+<body>
+  <h1>Ajax call to /gethello</h1>
+  <button onclick="getHello()">get hello Message</button>
+  <p id="result"></p>
+
+  <script>
+    function getHello() {
+      fetch('/gethello')
+        .then(res => res.text())
+        .then(text => document.getElementById('result').textContent = text)
+        .catch(() => document.getElementById('result').textContent = 'Error fetching data');
+    }
+  </script>
+</body>
+</html>
