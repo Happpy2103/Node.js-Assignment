@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head><title>Employees</title></head>
+<body>
+  <%- include('../partials/_header.ejs') %>
+
+  <h2>Employees</h2>
+  <p><a href="/admin/employees/new">+ New Employee</a></p>
+
+  <table border="1" cellpadding="6" cellspacing="0">
+    <tr>
+      <th>EmpID</th><th>Name</th><th>Email</th><th>Dept</th>
+      <th>Base</th><th>HRA%</th><th>DA%</th><th>Deductions</th><th>Net</th><th>Actions</th>
+    </tr>
+    <% employees.forEach(e => { %>
+      <tr>
+        <td><%= e.empId %></td>
+        <td><%= e.name %></td>
+        <td><%= e.email %></td>
+        <td><%= e.department || '' %></td>
+        <td><%= e.baseSalary %></td>
+        <td><%= e.hraPercent %></td>
+        <td><%= e.daPercent %></td>
+        <td><%= e.deductions %></td>
+        <td><%= e.netSalary %></td>
+        <td>
+          <a href="/admin/employees/<%= e._id %>">View</a> |
+          <a href="/admin/employees/<%= e._id %>/edit">Edit</a> |
+          <form style="display:inline" method="POST" action="/admin/employees/<%= e._id %>/delete">
+            <button type="submit" onclick="return confirm('Delete this employee?')">Delete</button>
+          </form>
+        </td>
+      </tr>
+    <% }) %>
+  </table>
+
+  <%- include('../partials/_footer.ejs') %>
+</body>
+</html>

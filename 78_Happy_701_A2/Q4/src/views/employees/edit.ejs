@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head><title>Edit Employee</title></head>
+<body>
+  <% include ../partials/_header.ejs %>
+  <h2>Edit <%= employee.empId %> - <%= employee.name %></h2>
+  <% if (errors) { %><p style="color:red"><%= errors %></p><% } %>
+  <form method="POST" action="/admin/employees/<%= employee._id %>/edit">
+    <div><label>Name</label><br/><input name="name" value="<%= employee.name %>" required /></div>
+    <div><label>Email</label><br/><input name="email" type="email" value="<%= employee.email %>" required /></div>
+    <div><label>Phone</label><br/><input name="phone" value="<%= employee.phone || '' %>" /></div>
+    <div><label>Department</label><br/><input name="department" value="<%= employee.department || '' %>" /></div>
+    <hr/>
+    <div><label>Base Salary</label><br/><input name="baseSalary" type="number" step="0.01" value="<%= employee.baseSalary %>" /></div>
+    <div><label>HRA %</label><br/><input name="hraPercent" type="number" step="0.01" value="<%= employee.hraPercent %>" /></div>
+    <div><label>DA %</label><br/><input name="daPercent" type="number" step="0.01" value="<%= employee.daPercent %>" /></div>
+    <div><label>Deductions</label><br/><input name="deductions" type="number" step="0.01" value="<%= employee.deductions %>" /></div>
+    <br/>
+    <button type="submit">Save</button>
+  </form>
+  <% include ../partials/_footer.ejs %>
+</body>
+</html>

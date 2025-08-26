@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head><title>New Employee</title></head>
+<body>
+  <%- include('../partials/_header.ejs') %>
+
+  <h2>New Employee</h2>
+
+  <form method="POST" action="/admin/employees/new">
+    <p>
+      <label>Name: </label>
+      <input type="text" name="name" value="<%= employee?.name || '' %>">
+    </p>
+    <p>
+      <label>Email: </label>
+      <input type="email" name="email" value="<%= employee?.email || '' %>">
+    </p>
+    <p>
+      <label>Department: </label>
+      <input type="text" name="department" value="<%= employee?.department || '' %>">
+    </p>
+    <p>
+      <label>Base Salary: </label>
+      <input type="number" name="baseSalary" value="<%= employee?.baseSalary || 0 %>">
+    </p>
+    <p>
+      <label>HRA%: </label>
+      <input type="number" name="hraPercent" value="<%= employee?.hraPercent || 0 %>">
+    </p>
+    <p>
+      <label>DA%: </label>
+      <input type="number" name="daPercent" value="<%= employee?.daPercent || 0 %>">
+    </p>
+    <p>
+      <label>Deductions: </label>
+      <input type="number" name="deductions" value="<%= employee?.deductions || 0 %>">
+    </p>
+    <p>
+      <button type="submit">Save Employee</button>
+    </p>
+  </form>
+
+  <%- include('../partials/_footer.ejs') %>
+</body>
+</html>

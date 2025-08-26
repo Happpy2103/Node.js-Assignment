@@ -1,0 +1,11 @@
+<h2>Product Listing</h2>
+<% products.forEach(prod => { %>
+  <div>
+    <h3><%= prod.title %> - $<%= prod.price %></h3>
+    <img src="<%= prod.image %>" width="100" />
+    <p><%= prod.description %></p>
+    <a href="/user/add-to-cart/<%= prod._id %>">Add to Cart</a>
+  </div>
+<% }) %>
+
+<a href="/user/cart">Go to Cart (Items: <%= cart.length %>)</a>

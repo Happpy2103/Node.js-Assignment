@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Registration Success</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 30px; }
+    table { border-collapse: collapse; width: 80%; margin: auto; }
+    th, td { border: 1px solid #000; padding: 8px; text-align: center; }
+    img { width: 70px; height: 70px; object-fit: cover; }
+    .center { text-align: center; margin-top: 20px; }
+  </style>
+</head>
+<body>
+  <h2 style="text-align:center;">Registration Successful</h2>
+  <table>
+    <tr><th>Username</th><td><%= data.username %></td></tr>
+    <tr><th>Email</th><td><%= data.email %></td></tr>
+    <tr><th>Gender</th><td><%= data.gender %></td></tr>
+    <tr><th>Hobbies</th><td><%= data.hobbies %></td></tr>
+    <tr>
+      <th>Profile Picture</th>
+      <td>
+        <% if (data.profilePic) { %>
+          <img src="/uploads/<%= data.profilePic %>" alt="Profile"/>
+        <% } %>
+      </td>
+    </tr>
+    <tr>
+      <th>Other Pictures</th>
+      <td>
+        <% data.otherPics.forEach(pic => { %>
+          <img src="/uploads/<%= pic %>" alt="Other"/>
+        <% }) %>
+      </td>
+    </tr>
+  </table>
+
+  <div class="center">
+    <a href="/download/<%= pdfFile.split('/').pop() %>">Download Details (PDF)</a>
+  </div>
+</body>
+</html>

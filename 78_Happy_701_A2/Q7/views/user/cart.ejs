@@ -1,0 +1,8 @@
+<h2>Your Cart</h2>
+<% cart.forEach(prod => { %>
+  <div>
+    <h4><%= prod.title %> - $<%= prod.price %></h4>
+    <img src="<%= prod.image %>" width="100" />
+  </div>
+<% }) %>
+<a href="/user/products">Back to Products</a>

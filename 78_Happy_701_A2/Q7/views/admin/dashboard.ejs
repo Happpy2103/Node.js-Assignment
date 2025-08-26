@@ -1,0 +1,45 @@
+<h2>Admin Dashboard</h2>
+
+<h3>Add Category</h3>
+<form method="POST" action="/admin/category">
+  <input name="name" placeholder="Category Name" required />
+  <select name="parent">
+    <option value="">--Parent Category--</option>
+    <% categories.forEach(cat => { %>
+      <option value="<%= cat._id %>"><%= cat.name %></option>
+    <% }) %>
+  </select>
+  <button type="submit">Add</button>
+</form>
+
+<h3>Add Product</h3>
+<form method="POST" action="/admin/product" enctype="multipart/form-data">
+  <input name="title" placeholder="Product Title" required />
+  <input name="description" placeholder="Description" required />
+  <input name="price" type="number" placeholder="Price" required />
+  <select name="category">
+    <% categories.forEach(cat => { %>
+      <option value="<%= cat._id %>"><%= cat.name %></option>
+    <% }) %>
+  </select>
+  <select name="subcategory">
+    <% subcategories.forEach(sub => { %>
+      <option value="<%= sub._id %>"><%= sub.name %></option>
+    <% }) %>
+  </select>
+  <input type="file" name="image" required />
+  <button type="submit">Add Product</button>
+</form>
+
+<h3>All Products</h3>
+<% products.forEach(prod => { %>
+  <div>
+    <h4><%= prod.title %> - $<%= prod.price %></h4>
+    <p><%= prod.description %></p>
+    <img src="<%= prod.image %>" width="100" />
+    <p>
+      Category: <%= prod.category ? prod.category.name : 'None' %> / 
+      Sub: <%= prod.subcategory ? prod.subcategory.name : 'None' %>
+    </p>
+  </div>
+<% }) %>

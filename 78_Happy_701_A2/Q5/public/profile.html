@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Employee Profile</title>
+</head>
+<body>
+  <h1>Employee Profile</h1>
+  <div id="profile"></div>
+  <button id="gotoLeave">Apply for Leave</button>
+  <button id="logoutBtn">Logout</button>
+
+  <script>
+    async function loadProfile() {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        window.location.href = '/';
+        return;
+      }
+
+      const res = await fetch('/api/profile', {
+        headers: { 'Authorization': 'Bearer ' + token }
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        const div = document.getElementById('profile');
+        div.innerHTML = `
+          <p><b>Name:</b> ${data.name}</p>
+          <p><b>Username:</b> ${data.username}</p>
+          <p><b>Email:</b> ${data.email || '-'}</p>
+          <p><b>Department:</b> ${data.department || '-'}</p>
+          <p><b>Position:</b> ${data.position || '-'}</p>
+          <p><b>Salary:</b> ${data.salary || '-'}</p>
+        `;
+      } else {
+        localStorage.removeItem('token');
+        window.location.href = '/';
+      }
+    }
+
+    document.getElementById('logoutBtn').addEventListener('click', () => {
+      localStorage.removeItem('token');
+      window.location.href = '/';
+    });
+
+    document.getElementById('gotoLeave').addEventListener('click', () => {
+      window.location.href = '/leave';
+    });
+
+    loadProfile();
+  </script>
+</body>
+</html>

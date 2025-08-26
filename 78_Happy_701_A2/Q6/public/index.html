@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Random User API - Q6</title>
+  <style>
+    body { font-family: Arial; margin: 20px; }
+    .user-container { border: 1px solid #ccc; padding: 20px; margin-top: 20px; }
+    img { max-width: 100px; border-radius: 50%; }
+  </style>
+</head>
+<body>
+  <h1>Q6 - Random User API</h1>
+
+  <button onclick="getUserFromBackend()">Get Random User (Backend)</button>
+  <button onclick="getUserFromFrontend()">Get Random User (Frontend)</button>
+
+  <div id="user" class="user-container"></div>
+
+  <script>
+    async function getUserFromBackend() {
+      const res = await fetch('/api/random-user');
+      const data = await res.json();
+      displayUser(data.data);
+    }
+
+    async function getUserFromFrontend() {
+      const res = await fetch('https://api.freeapi.app/api/v1/public/randomusers/user/random');
+      const data = await res.json();
+      displayUser(data.data);
+    }
+
+    function displayUser(user) {
+      const html = `
+        <h3>${user.firstName} ${user.lastName}</h3>
+        <p>Email: ${user.email}</p>
+        <p>Gender: ${user.gender}</p>
+        <img src="${user.image}" alt="User Image">
+      `;
+      document.getElementById('user').innerHTML = html;
+    }
+  </script>
+</body>
+</html>

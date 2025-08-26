@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head><title>Employee</title></head>
+<body>
+  <% include ../partials/_header.ejs %>
+  <h2><%= employee.empId %> - <%= employee.name %></h2>
+  <p><b>Email:</b> <%= employee.email %></p>
+  <p><b>Phone:</b> <%= employee.phone || '-' %></p>
+  <p><b>Department:</b> <%= employee.department || '-' %></p>
+  <hr/>
+  <p><b>Base:</b> <%= employee.baseSalary %></p>
+  <p><b>HRA%:</b> <%= employee.hraPercent %></p>
+  <p><b>DA%:</b> <%= employee.daPercent %></p>
+  <p><b>Deductions:</b> <%= employee.deductions %></p>
+  <h3>Net Salary: <%= employee.netSalary %></h3>
+  <p><a href="/admin/employees">Back</a></p>
+  <% include ../partials/_footer.ejs %>
+</body>
+</html>

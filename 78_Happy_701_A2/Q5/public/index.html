@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Employee Login</title>
+</head>
+<body>
+  <h1>Login</h1>
+  <form id="loginForm">
+    <label>Username: <input type="text" id="username" required /></label><br />
+    <label>Password: <input type="password" id="password" required /></label><br />
+    <button type="submit">Login</button>
+  </form>
+  <p id="message" style="color:red"></p>
+
+  <script>
+    const form = document.getElementById('loginForm');
+    form.addEventListener('submit', async e => {
+      e.preventDefault();
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value.trim();
+      const msg = document.getElementById('message');
+
+      try {
+        const res = await fetch('/api/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, password })
+        });
+
+        const data = await res.json();
+        if (res.ok) {
+          localStorage.setItem('token', data.token);
+          window.location.href = '/profile';
+        } else {
+          msg.textContent = data.message || 'Login failed';
+        }
+      } catch (err) {
+        msg.textContent = 'Server error';
+      }
+    });
+  </script>
+</body>
+</html>

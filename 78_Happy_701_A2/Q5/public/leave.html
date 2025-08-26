@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Leave Application</title>
+</head>
+<body>
+  <h1>Leave Application</h1>
+
+  <form id="leaveForm">
+    <label>Date: <input type="date" id="leaveDate" required /></label><br />
+    <label>Reason: <textarea id="leaveReason" required></textarea></label><br />
+    <button type="submit">Apply</button>
+  </form>
+
+  <h2>Your Leave Applications</h2>
+  <table border="1" id="leaveTable" style="border-collapse: collapse;">
+    <thead>
+      <tr><th>Date</th><th>Reason</th><th>Granted</th></tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <button id="logoutBtn">Logout</button>
+  <button id="gotoProfile">Back to Profile</button>
+
+  <script>
+    const token = localStorage.getItem('token');
+    if (!token) window.location.href = '/';
+
+    async function loadLeaves() {
+      const res = await fetch('/api/leave', {
+        headers: { 'Authorization': 'Bearer ' + token }
+      });
+      if (res.ok) {
+        const leaves = await res.json();
+        const tbody = document.querySelector('#leaveTable tbody');
+        tbody.innerHTML = '';
+        leaves.forEach(l => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td>${new Date(l.date).toLocaleDateString()}</td>
+            <td>${l.reason}</td>
+            <td>${l.granted ? 'Yes' : 'No'}</td>
+          `;
+          tbody.appendChild(tr);
+        });
+      } else {
+        localStorage.removeItem('token');
+        window.location.href = '/';
+      }
+    }
+
+    document.getElementById('leaveForm').addEventListener('submit', async e => {
+      e.preventDefault();
+      const date = document.getElementById('leaveDate').value;
+      const reason = document.getElementById('leaveReason').value.trim();
+
+      const res = await fetch('/api/leave', {
+        method: 'POST',
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + token
+        },
+        body: JSON.stringify({ date, reason })
+      });
+
+      if (res.ok) {
+        alert('Leave application submitted');
+        document.getElementById('leaveForm').reset();
+        loadLeaves();
+      } else {
+        const data = await res.json();
+        alert(data.message || 'Error submitting leave');
+      }
+    });
+
+    document.getElementById('logoutBtn').addEventListener('click', () => {
+      localStorage.removeItem('token');
+      window.location.href = '/';
+    });
+
+    document.getElementById('gotoProfile').addEventListener('click', () => {
+      window.location.href = '/profile';
+    });
+
+    loadLeaves();
+  </script>
+</body>
+</html>
